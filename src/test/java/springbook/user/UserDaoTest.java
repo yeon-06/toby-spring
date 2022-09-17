@@ -2,14 +2,23 @@ package springbook.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import springbook.config.DaoConfig;
 
 class UserDaoTest {
 
-    private static final ConnectionMaker connectionMaker = new SimpleConnection();
-    private static final UserDao userDao = new UserDao(connectionMaker);
+    private static UserDao userDao;
+
+    @BeforeAll
+    static void init() {
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DaoConfig.class);
+        userDao = applicationContext.getBean(UserDao.class);
+    }
 
     @BeforeEach
     void delete() {
