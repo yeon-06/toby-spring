@@ -1,12 +1,11 @@
 package springbook.user;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDao {
+public abstract class UserDao {
 
     public void add(User user) {
         String sql = "insert into users(id, name, password) values(?,?,?)";
@@ -55,7 +54,5 @@ public class UserDao {
         }
     }
 
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:13306/springbook", "spring", "book");
-    }
+    public abstract Connection getConnection() throws SQLException;
 }
