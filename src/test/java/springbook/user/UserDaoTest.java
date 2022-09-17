@@ -9,15 +9,10 @@ import org.junit.jupiter.api.Test;
 
 class UserDaoTest {
 
-    private static final UserDao userDao = new UserDao();
+    private static final UserDao userDao = new NUserDao();
 
     @BeforeEach
     void delete() {
-        userDao.deleteAll();
-    }
-
-    @AfterEach
-    void delete2() {
         userDao.deleteAll();
     }
 
