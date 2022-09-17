@@ -7,12 +7,16 @@ import java.sql.SQLException;
 
 public class UserDao {
 
-    private final SimpleConnection simpleConnection = new SimpleConnection();
+    private final ConnectionMaker connectionMaker;
+
+    public UserDao(final ConnectionMaker connectionMaker) {
+        this.connectionMaker = connectionMaker;
+    }
 
     public void add(User user) {
         String sql = "insert into users(id, name, password) values(?,?,?)";
 
-        try (Connection connection = simpleConnection.getConnection();
+        try (Connection connection = connectionMaker.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
             preparedStatement.setString(1, user.getId());
             preparedStatement.setString(2, user.getName());
@@ -27,7 +31,7 @@ public class UserDao {
     public User findById(String id) {
         String sql = "select id, name, password from users where id = ?";
 
-        try (Connection connection = simpleConnection.getConnection();
+        try (Connection connection = connectionMaker.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
             preparedStatement.setString(1, id);
 
@@ -48,7 +52,7 @@ public class UserDao {
     public void deleteAll() {
         String sql = "delete from users";
 
-        try (Connection connection = simpleConnection.getConnection();
+        try (Connection connection = connectionMaker.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
