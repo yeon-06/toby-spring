@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 class UserDaoTest {
 
-    private static final UserDao userDao = new NUserDao();
+    private static final UserDao userDao = new UserDao();
 
     @BeforeEach
     void delete() {

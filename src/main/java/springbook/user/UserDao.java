@@ -5,12 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class UserDao {
+public class UserDao {
+
+    private final SimpleConnection simpleConnection = new SimpleConnection();
 
     public void add(User user) {
         String sql = "insert into users(id, name, password) values(?,?,?)";
 
-        try (Connection connection = getConnection();
+        try (Connection connection = simpleConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
             preparedStatement.setString(1, user.getId());
             preparedStatement.setString(2, user.getName());
@@ -25,7 +27,7 @@ public abstract class UserDao {
     public User findById(String id) {
         String sql = "select id, name, password from users where id = ?";
 
-        try (Connection connection = getConnection();
+        try (Connection connection = simpleConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
             preparedStatement.setString(1, id);
 
@@ -46,13 +48,11 @@ public abstract class UserDao {
     public void deleteAll() {
         String sql = "delete from users";
 
-        try (Connection connection = getConnection();
+        try (Connection connection = simpleConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
-    public abstract Connection getConnection() throws SQLException;
 }
