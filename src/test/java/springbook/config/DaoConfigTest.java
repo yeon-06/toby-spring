@@ -5,19 +5,24 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import springbook.user.UserDao;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = DaoConfig.class)
 class DaoConfigTest {
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     @DisplayName(value = "bean 등록 확인")
     @Test
     void bean() {
-        // given
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DaoConfig.class);
-
-        // when & then
+        // given & when & then
         assertDoesNotThrow(() -> applicationContext.getBean(UserDao.class));
     }
 
@@ -25,7 +30,6 @@ class DaoConfigTest {
     @Test
     public void equalsBean() {
         // given
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DaoConfig.class);
         UserDao userDao1 = applicationContext.getBean(UserDao.class);
         UserDao userDao2 = applicationContext.getBean(UserDao.class);
 
