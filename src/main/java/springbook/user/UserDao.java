@@ -3,6 +3,8 @@ package springbook.user;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import springbook.jdbc.JdbcContext;
+import springbook.jdbc.StatementStrategy;
 
 public class UserDao {
 

@@ -1,4 +1,4 @@
-package springbook.user;
+package springbook.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

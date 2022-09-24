@@ -1,10 +1,11 @@
-package springbook.user;
+package springbook.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.DataSource;
+import springbook.user.User;
 
 public class JdbcContext {
 

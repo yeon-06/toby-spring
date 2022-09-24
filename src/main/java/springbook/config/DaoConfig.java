@@ -5,7 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
-import springbook.user.JdbcContext;
+import springbook.jdbc.JdbcContext;
 import springbook.user.UserDao;
 
 @Configuration
