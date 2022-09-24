@@ -18,10 +18,14 @@ public class Calculator {
     }
 
     public int sum() {
+        return calculate(br -> br.lines()
+                .mapToInt(Integer::parseInt)
+                .sum());
+    }
+
+    private int calculate(BufferedReaderCallback callback) {
         try (BufferedReader br = new BufferedReader(fileReader)) {
-            return br.lines()
-                    .mapToInt(Integer::parseInt)
-                    .sum();
+            return callback.calculateWithReader(br);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
