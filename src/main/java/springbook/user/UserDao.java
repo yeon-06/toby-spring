@@ -52,7 +52,7 @@ public class UserDao {
         jdbcContextWithStatementStrategy(new DeleteAllStatement());
     }
 
-    public void jdbcContextWithStatementStrategy(final StatementStrategy statementStrategy) {
+    private void jdbcContextWithStatementStrategy(final StatementStrategy statementStrategy) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = statementStrategy.makePreparedStatement(connection);) {
             preparedStatement.executeUpdate();
