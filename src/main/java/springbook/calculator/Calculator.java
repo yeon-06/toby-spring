@@ -20,7 +20,7 @@ public class Calculator {
         return calculate((line, value) -> Math.max(Integer.parseInt(line), value));
     }
 
-    private int calculate(LineCallback lineCallback) {
+    private int calculate(LineCallback<Integer> lineCallback) {
         try (FileReader fileReader = new FileReader(filePath);
              BufferedReader br = new BufferedReader(fileReader)) {
             int result = 0;
