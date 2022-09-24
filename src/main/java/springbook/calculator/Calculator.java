@@ -13,22 +13,24 @@ public class Calculator {
     }
 
     public int sum() {
-        return calculate(br -> br.lines()
-                .mapToInt(Integer::parseInt)
-                .sum());
+        return calculate((line, value) -> Integer.parseInt(line) + value);
     }
 
     public int max() {
-        return calculate(br -> br.lines()
-                .mapToInt(Integer::parseInt)
-                .max()
-                .orElse(0));
+        return calculate((line, value) -> Math.max(Integer.parseInt(line), value));
     }
 
-    private int calculate(BufferedReaderCallback callback) {
+    private int calculate(LineCallback lineCallback) {
         try (FileReader fileReader = new FileReader(filePath);
              BufferedReader br = new BufferedReader(fileReader)) {
-            return callback.calculateWithReader(br);
+            int result = 0;
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                result = lineCallback.executeWithLine(line, result);
+            }
+
+            return result;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
