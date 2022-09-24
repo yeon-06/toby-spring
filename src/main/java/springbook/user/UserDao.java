@@ -42,8 +42,6 @@ public class UserDao {
     }
 
     public void deleteAll() {
-        StatementStrategy statementStrategy = connection -> connection.prepareStatement("delete from users");
-
-        jdbcContext.execute(statementStrategy);
+        jdbcContext.executeSql("delete from users");
     }
 }

@@ -15,6 +15,10 @@ public class JdbcContext {
         this.dataSource = dataSource;
     }
 
+    public void executeSql(final String query) {
+        execute(connection -> connection.prepareStatement(query));
+    }
+
     public void execute(final StatementStrategy statementStrategy) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = statementStrategy.makePreparedStatement(connection)) {
