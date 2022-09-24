@@ -15,16 +15,8 @@ public class UserDao {
     }
 
     public void add(User user) {
-        StatementStrategy statementStrategy = connection -> {
-            String sql = "insert into users(id, name, password) values(?,?,?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, user.getId());
-            preparedStatement.setString(2, user.getName());
-            preparedStatement.setString(3, user.getPassword());
-            return preparedStatement;
-        };
-
-        jdbcContext.execute(statementStrategy);
+        jdbcContext.executeSql("insert into users(id, name, password) values(?,?,?)",
+                user.getId(), user.getName(), user.getPassword());
     }
 
     public User findById(String id) {
