@@ -23,6 +23,13 @@ public class Calculator {
                 .sum());
     }
 
+    public int max() {
+        return calculate(br -> br.lines()
+                .mapToInt(Integer::parseInt)
+                .max()
+                .orElse(0));
+    }
+
     private int calculate(BufferedReaderCallback callback) {
         try (BufferedReader br = new BufferedReader(fileReader)) {
             return callback.calculateWithReader(br);

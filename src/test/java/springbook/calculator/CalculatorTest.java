@@ -23,4 +23,19 @@ class CalculatorTest {
         // then
         assertThat(sum).isEqualTo(6);
     }
+
+    @DisplayName(value = "file 숫자 중에서 최대값")
+    @Test
+    void max() {
+        // given
+        URL url = getClass().getResource("/numbers.txt");
+        String path = Objects.requireNonNull(url).getPath();
+        Calculator calculator = new Calculator(path);
+
+        // when
+        int max = calculator.max();
+
+        // then
+        assertThat(max).isEqualTo(3);
+    }
 }
