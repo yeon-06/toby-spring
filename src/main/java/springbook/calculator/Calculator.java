@@ -1,20 +1,15 @@
 package springbook.calculator;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class Calculator {
 
-    private final FileReader fileReader;
+    private final String filePath;
 
     public Calculator(final String filePath) {
-        try {
-            fileReader = new FileReader(filePath);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        this.filePath = filePath;
     }
 
     public int sum() {
@@ -31,7 +26,8 @@ public class Calculator {
     }
 
     private int calculate(BufferedReaderCallback callback) {
-        try (BufferedReader br = new BufferedReader(fileReader)) {
+        try (FileReader fileReader = new FileReader(filePath);
+             BufferedReader br = new BufferedReader(fileReader)) {
             return callback.calculateWithReader(br);
         } catch (IOException e) {
             throw new RuntimeException(e);

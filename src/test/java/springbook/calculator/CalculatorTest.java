@@ -4,16 +4,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URL;
 import java.util.Objects;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class CalculatorTest {
 
-    private Calculator calculator;
+    private static Calculator calculator;
 
-    @BeforeEach
-    void init() {
+    @BeforeAll
+    static void init() {
         URL url = CalculatorTest.class.getResource("/numbers.txt");
         String path = Objects.requireNonNull(url).getPath();
         calculator = new Calculator(path);
