@@ -60,10 +60,8 @@ public class UserDao {
     }
 
     public void deleteAll() {
-        String sql = "delete from users";
-
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+             PreparedStatement preparedStatement = new DeleteAllStatement().makePreparedStatement(connection);) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
