@@ -31,12 +31,13 @@ public class UserDao {
 
     public User findById(String id) {
         String sql = "select id, name, password from users where id = ?";
+        ResultSet resultSet = null;
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
             preparedStatement.setString(1, id);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return new User(
                         resultSet.getString("id"),
@@ -47,6 +48,14 @@ public class UserDao {
             return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
+
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException ignored) {
+                }
+            }
         }
     }
 
