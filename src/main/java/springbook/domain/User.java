@@ -1,4 +1,4 @@
-package springbook.user;
+package springbook.domain;
 
 import java.util.Objects;
 import lombok.Getter;
