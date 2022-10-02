@@ -16,13 +16,12 @@
 
 ### Chapter 3. 템플릿
 
-- [학습 브랜치]
-- [학습 기록]
+- [학습 브랜치](https://github.com/yeon-06/toby-spring/tree/chapter3)
+- [학습 기록](https://github.com/yeon-06/toby-spring/pull/5)
 
 ### Chapter 4. 예외
 
-- [학습 브랜치]
-- [학습 기록]
+- [학습 기록](https://github.com/yeon-06/toby-spring/pull/6)
 
 ### Chapter 5. 서비스 추상화
 
