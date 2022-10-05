@@ -22,6 +22,10 @@ public enum Level {
                 .orElse(BASIC);
     }
 
+    public Level nextLevel() {
+        return of(value + 1);
+    }
+
     public int getValue() {
         return value;
     }
