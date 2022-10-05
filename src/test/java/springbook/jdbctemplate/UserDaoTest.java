@@ -35,4 +35,22 @@ class UserDaoTest {
         // then
         assertThat(actual).isEqualTo(user);
     }
+
+    @DisplayName(value = "사용자 레벨 업그레이드")
+    @Test
+    void update() {
+        // given
+        String id = "yeonlog";
+        User user = new User(id, "name", "1234", Level.SILVER);
+        userDao.add(user);
+
+        user.upgradeLevel();
+
+        // when
+        userDao.update(user);
+
+        // then
+        User actual = userDao.findById(id);
+        assertThat(actual.getLevel()).isEqualTo(Level.SILVER.nextLevel());
+    }
 }
