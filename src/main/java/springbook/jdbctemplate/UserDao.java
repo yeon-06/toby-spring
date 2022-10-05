@@ -13,17 +13,17 @@ public class UserDao {
     }
 
     public void add(User user) {
-        String sql = "insert into users(id, name, password) values(?,?,?)";
-        jdbcTemplate.update(sql, user.getId(), user.getName(), user.getPassword());
+        String sql = "insert into users(id, name, password, level) values(?,?,?,?)";
+        jdbcTemplate.update(sql, user.getId(), user.getName(), user.getPassword(), user.getLevel().getValue());
     }
 
     public User findById(String id) {
-        String sql = "select id, name, password from users where id = ?";
+        String sql = "select id, name, password, level from users where id = ?";
         RowMapper<User> rowMapper = (rs, rowNum) -> new User(
                 rs.getString("id"),
                 rs.getString("name"),
-                rs.getString("password")
-        );
+                rs.getString("password"),
+                Level.of(rs.getInt("level")));
 
         return jdbcTemplate.queryForObject(sql, rowMapper, id);
     }

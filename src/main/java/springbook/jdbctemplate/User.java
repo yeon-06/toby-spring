@@ -9,11 +9,13 @@ public class User {
     private final String id;
     private final String name;
     private final String password;
+    private final Level level;
 
-    public User(final String id, final String name, final String password) {
+    public User(final String id, final String name, final String password, final Level level) {
         this.id = id;
         this.name = name;
         this.password = password;
+        this.level = level;
     }
 
     @Override
