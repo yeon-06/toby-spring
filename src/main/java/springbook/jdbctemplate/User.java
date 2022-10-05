@@ -1,4 +1,4 @@
-package springbook.domain;
+package springbook.jdbctemplate;
 
 import java.util.Objects;
 import lombok.Getter;

@@ -3,7 +3,6 @@ package springbook.jdbc;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import springbook.domain.User;
 
 public class UserDao {
 
@@ -19,14 +18,11 @@ public class UserDao {
     }
 
     public User findById(String id) {
-        StatementStrategy statementStrategy = new StatementStrategy() {
-            @Override
-            public PreparedStatement makePreparedStatement(final Connection connection) throws SQLException {
-                String sql = "select id, name, password from users where id = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, id);
-                return preparedStatement;
-            }
+        StatementStrategy statementStrategy = connection -> {
+            String sql = "select id, name, password from users where id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, id);
+            return preparedStatement;
         };
 
         return jdbcContext.executeSelect(statementStrategy);
