@@ -27,7 +27,7 @@ class UserDaoTest {
     void findById() {
         // given
         User user = new User("id", "name", "1234", Level.SILVER);
-        userDao.add(user);
+        userDao.save(user);
 
         // when
         User actual = userDao.findById(user.getId());
@@ -42,7 +42,7 @@ class UserDaoTest {
         // given
         String id = "yeonlog";
         User user = new User(id, "name", "1234", Level.SILVER);
-        userDao.add(user);
+        userDao.save(user);
 
         user.upgradeLevel();
 

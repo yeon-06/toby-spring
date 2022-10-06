@@ -12,7 +12,7 @@ public class UserDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void add(final User user) {
+    public void save(final User user) {
         String sql = "insert into users(id, name, password, level) values(?,?,?,?)";
         jdbcTemplate.update(sql, user.getId(), user.getName(), user.getPassword(), user.getLevel().getValue());
     }
