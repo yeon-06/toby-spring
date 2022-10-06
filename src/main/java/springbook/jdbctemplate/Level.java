@@ -23,6 +23,9 @@ public enum Level {
     }
 
     public Level nextLevel() {
+        if (this == GOLD) {
+            return this;
+        }
         return of(value + 1);
     }
 
