@@ -7,14 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
 @Configuration
-public class DaoConfig {
+public class DataSourceConfig {
 
     @Bean
-    public UserDao userDao() {
-        return new UserDao(dataSource());
-    }
-
-    private DataSource dataSource() {
+    public DataSource dataSource() {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
         dataSource.setDriverClass(Driver.class);
         dataSource.setUrl("jdbc:mysql://localhost:13306/springbook");

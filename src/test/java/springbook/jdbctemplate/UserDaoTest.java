@@ -11,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = DaoConfig.class)
+@ContextConfiguration(classes = {DataSourceConfig.class, UserDao.class})
 class UserDaoTest {
 
     @Autowired

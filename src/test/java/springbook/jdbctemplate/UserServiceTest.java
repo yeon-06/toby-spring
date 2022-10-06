@@ -3,6 +3,7 @@ package springbook.jdbctemplate;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {DaoConfig.class, UserService.class})
+@ContextConfiguration(classes = {DataSourceConfig.class, UserDao.class, UserService.class})
 class UserServiceTest {
 
     @Autowired
@@ -25,6 +26,27 @@ class UserServiceTest {
     @BeforeEach
     void delete() {
         userDao.deleteAll();
+    }
+
+    @DisplayName(value = "하나라도 레벨 정상 업그레이드 되지 않으면 전부 롤백")
+    void upgradeLevels() throws Exception {
+        // given
+        User user1 = new User("id1", "name", "password", Level.BASIC);
+        User user2 = new User("id2", "name", "password", Level.BASIC);
+        User user3 = new User("id3", "name", "password", Level.GOLD);
+        List<User> users = List.of(user1, user2, user3);
+
+        // when
+        userService.upgradeLevels(users);
+
+        // then
+        User actual1 = userDao.findById(user1.getId());
+        User actual2 = userDao.findById(user2.getId());
+        User actual3 = userDao.findById(user3.getId());
+
+        assertThat(actual1.getLevel()).isEqualTo(Level.BASIC);
+        assertThat(actual2.getLevel()).isEqualTo(Level.BASIC);
+        assertThat(actual3.getLevel()).isEqualTo(Level.GOLD);
     }
 
     @DisplayName(value = "사용자 레벨 정상 업그레이드")
