@@ -28,8 +28,29 @@ class UserServiceTest {
         userDao.deleteAll();
     }
 
+    @DisplayName(value = "여러명의 사용자 레벨 정상 업그레이드")
+    void upgradeLevels_succeed() throws Exception {
+        // given
+        User user1 = new User("id1", "name", "password", Level.BASIC);
+        User user2 = new User("id2", "name", "password", Level.BASIC);
+        User user3 = new User("id3", "name", "password", Level.SILVER);
+        List<User> users = List.of(user1, user2, user3);
+
+        // when
+        userService.upgradeLevels(users);
+
+        // then
+        User actual1 = userDao.findById(user1.getId());
+        User actual2 = userDao.findById(user2.getId());
+        User actual3 = userDao.findById(user3.getId());
+
+        assertThat(actual1.getLevel()).isEqualTo(Level.SILVER);
+        assertThat(actual2.getLevel()).isEqualTo(Level.SILVER);
+        assertThat(actual3.getLevel()).isEqualTo(Level.GOLD);
+    }
+
     @DisplayName(value = "하나라도 레벨 정상 업그레이드 되지 않으면 전부 롤백")
-    void upgradeLevels() throws Exception {
+    void upgradeLevels_failed() throws Exception {
         // given
         User user1 = new User("id1", "name", "password", Level.BASIC);
         User user2 = new User("id2", "name", "password", Level.BASIC);
