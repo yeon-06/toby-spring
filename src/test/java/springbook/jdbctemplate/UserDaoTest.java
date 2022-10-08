@@ -9,10 +9,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import springbook.domain.User;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = DaoConfig.class)
+@ContextConfiguration(classes = {DataSourceConfig.class, UserDao.class})
 class UserDaoTest {
 
     @Autowired
@@ -27,13 +26,31 @@ class UserDaoTest {
     @Test
     void findById() {
         // given
-        User user = new User("id", "name", "1234");
-        userDao.add(user);
+        User user = new User("id", "name", "1234", Level.SILVER);
+        userDao.save(user);
 
         // when
         User actual = userDao.findById(user.getId());
 
         // then
         assertThat(actual).isEqualTo(user);
+    }
+
+    @DisplayName(value = "사용자 레벨 업그레이드")
+    @Test
+    void update() {
+        // given
+        String id = "yeonlog";
+        User user = new User(id, "name", "1234", Level.SILVER);
+        userDao.save(user);
+
+        user.upgradeLevel();
+
+        // when
+        userDao.update(user);
+
+        // then
+        User actual = userDao.findById(id);
+        assertThat(actual.getLevel()).isEqualTo(Level.SILVER.nextLevel());
     }
 }

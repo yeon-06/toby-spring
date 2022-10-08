@@ -1,4 +1,4 @@
-package springbook.domain;
+package springbook.jdbctemplate;
 
 import java.util.Objects;
 import lombok.Getter;
@@ -9,11 +9,17 @@ public class User {
     private final String id;
     private final String name;
     private final String password;
+    private Level level;
 
-    public User(final String id, final String name, final String password) {
+    public User(final String id, final String name, final String password, final Level level) {
         this.id = id;
         this.name = name;
         this.password = password;
+        this.level = level;
+    }
+
+    public void upgradeLevel() {
+        level = level.nextLevel();
     }
 
     @Override
