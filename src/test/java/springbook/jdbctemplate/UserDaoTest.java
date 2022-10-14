@@ -9,13 +9,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import springbook.jdbctemplate.dao.UserDaoImpl;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {DataSourceConfig.class, UserDao.class})
+@ContextConfiguration(classes = {DataSourceConfig.class, UserDaoImpl.class})
 class UserDaoTest {
 
     @Autowired
-    private UserDao userDao;
+    private UserDaoImpl userDao;
 
     @BeforeEach
     void delete() {

@@ -11,12 +11,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import springbook.jdbctemplate.dao.UserDao;
+import springbook.jdbctemplate.dao.UserDaoImpl;
 import springbook.jdbctemplate.service.TxUserService;
 import springbook.jdbctemplate.service.UserServiceImpl;
 
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {DataSourceConfig.class, UserDao.class, UserServiceImpl.class, TxUserService.class})
+@ContextConfiguration(classes = {DataSourceConfig.class, UserDaoImpl.class, UserServiceImpl.class, TxUserService.class})
 class UserServiceTest {
 
     @Autowired

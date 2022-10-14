@@ -1,24 +1,28 @@
-package springbook.jdbctemplate;
+package springbook.jdbctemplate.dao;
 
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import springbook.jdbctemplate.Level;
+import springbook.jdbctemplate.User;
 
 @Repository
-public class UserDao {
+public class UserDaoImpl implements UserDao {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public UserDao(final DataSource dataSource) {
+    public UserDaoImpl(final DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    @Override
     public void save(final User user) {
         String sql = "insert into users(id, name, password, level) values(?,?,?,?)";
         jdbcTemplate.update(sql, user.getId(), user.getName(), user.getPassword(), user.getLevel().getValue());
     }
 
+    @Override
     public User findById(final String id) {
         String sql = "select id, name, password, level from users where id = ?";
         RowMapper<User> rowMapper = (rs, rowNum) -> new User(
@@ -30,11 +34,13 @@ public class UserDao {
         return jdbcTemplate.queryForObject(sql, rowMapper, id);
     }
 
+    @Override
     public void update(final User user) {
         String sql = "update users set name = ?, password = ?, level = ? where id = ?";
         jdbcTemplate.update(sql, user.getName(), user.getPassword(), user.getLevel().getValue(), user.getId());
     }
 
+    @Override
     public void deleteAll() {
         jdbcTemplate.update("delete from users");
     }
