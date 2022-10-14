@@ -13,13 +13,13 @@ public class UserDao {
     }
 
     public void add(User user) {
-        jdbcContext.executeSql("insert into users(id, name, password) values(?,?,?)",
-                user.getId(), user.getName(), user.getPassword());
+        jdbcContext.executeSql("insert into users(id, name, password, level) values(?,?,?,?)",
+                user.getId(), user.getName(), user.getPassword(), user.getLevel().getValue());
     }
 
     public User findById(String id) {
         StatementStrategy statementStrategy = connection -> {
-            String sql = "select id, name, password from users where id = ?";
+            String sql = "select id, name, password, level from users where id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, id);
             return preparedStatement;

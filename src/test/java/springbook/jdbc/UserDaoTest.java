@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import springbook.jdbctemplate.Level;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = DaoConfig.class)
@@ -26,7 +27,7 @@ class UserDaoTest {
     @Test
     void findById() {
         // given
-        User user = new User("id", "name", "1234");
+        User user = new User("id", "name", "1234", Level.BASIC);
         userDao.add(user);
 
         // when
