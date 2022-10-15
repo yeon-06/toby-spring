@@ -1,4 +1,4 @@
-package springbook.jdbctemplate;
+package springbook.jdbctemplate.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Component;
-import springbook.jdbctemplate.dao.UserDao;
+import springbook.jdbctemplate.domain.User;
 
 @Component
 public class StubUserDao implements UserDao {

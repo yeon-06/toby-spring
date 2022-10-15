@@ -1,6 +1,6 @@
 package springbook.jdbctemplate.dao;
 
-import springbook.jdbctemplate.User;
+import springbook.jdbctemplate.domain.User;
 
 public interface UserDao {
 

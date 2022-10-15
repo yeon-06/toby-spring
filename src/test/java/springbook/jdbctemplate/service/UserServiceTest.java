@@ -1,4 +1,4 @@
-package springbook.jdbctemplate;
+package springbook.jdbctemplate.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -11,10 +11,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import springbook.jdbctemplate.DataSourceConfig;
+import springbook.jdbctemplate.domain.Level;
+import springbook.jdbctemplate.domain.User;
 import springbook.jdbctemplate.dao.UserDao;
 import springbook.jdbctemplate.dao.UserDaoImpl;
-import springbook.jdbctemplate.service.TxUserService;
-import springbook.jdbctemplate.service.UserServiceImpl;
 
 
 @ExtendWith(SpringExtension.class)

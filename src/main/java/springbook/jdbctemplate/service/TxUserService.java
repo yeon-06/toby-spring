@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-import springbook.jdbctemplate.User;
+import springbook.jdbctemplate.domain.User;
 
 @Component
 public class TxUserService implements UserService {

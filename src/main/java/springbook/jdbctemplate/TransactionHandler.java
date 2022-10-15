@@ -1,4 +1,4 @@
-package springbook.jdbctemplate.service_with_proxy;
+package springbook.jdbctemplate;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;

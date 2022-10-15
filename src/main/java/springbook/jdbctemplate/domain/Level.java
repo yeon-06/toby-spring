@@ -1,4 +1,4 @@
-package springbook.jdbctemplate;
+package springbook.jdbctemplate.domain;
 
 import java.util.Arrays;
 

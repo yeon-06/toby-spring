@@ -2,7 +2,7 @@ package springbook.jdbc;
 
 import java.util.Objects;
 import lombok.Getter;
-import springbook.jdbctemplate.Level;
+import springbook.jdbctemplate.domain.Level;
 
 @Getter
 public class User {

@@ -2,7 +2,7 @@ package springbook.jdbctemplate.service;
 
 import java.util.List;
 import org.springframework.stereotype.Component;
-import springbook.jdbctemplate.User;
+import springbook.jdbctemplate.domain.User;
 import springbook.jdbctemplate.dao.UserDao;
 
 @Component

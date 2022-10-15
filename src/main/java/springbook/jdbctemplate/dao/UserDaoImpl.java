@@ -4,8 +4,8 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import springbook.jdbctemplate.Level;
-import springbook.jdbctemplate.User;
+import springbook.jdbctemplate.domain.Level;
+import springbook.jdbctemplate.domain.User;
 
 @Repository
 public class UserDaoImpl implements UserDao {
