@@ -1,4 +1,4 @@
-package springbook.proxy;
+package springbook.proxy.domain;
 
 public class ProxyWord implements Word {
 

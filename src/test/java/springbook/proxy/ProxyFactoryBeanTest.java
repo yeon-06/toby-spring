@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.aop.Pointcut;
 import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.aop.support.NameMatchMethodPointcut;
+import springbook.proxy.domain.LogyeonWord;
+import springbook.proxy.domain.Word;
+import springbook.proxy.domain.YeonlogWord;
 
 class ProxyFactoryBeanTest {
 

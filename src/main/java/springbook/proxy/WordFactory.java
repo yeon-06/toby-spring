@@ -2,12 +2,15 @@ package springbook.proxy;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.stereotype.Component;
+import springbook.proxy.domain.ProxyWord;
+import springbook.proxy.domain.Word;
+import springbook.proxy.domain.YeonlogWord;
 
 @Component
 public class WordFactory implements FactoryBean<Word> {
 
     @Override
-    public Word getObject() throws Exception {
+    public Word getObject() {
         return new ProxyWord(new YeonlogWord());
     }
 

@@ -1,6 +1,6 @@
-package springbook.proxy;
+package springbook.proxy.domain;
 
-public class LogyeonWord implements Word {
+public class YeonlogWord implements Word {
 
     private static final String NAME = "yeonlog";
 

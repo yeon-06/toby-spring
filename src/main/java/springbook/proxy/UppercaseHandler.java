@@ -2,6 +2,7 @@ package springbook.proxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import springbook.proxy.domain.Word;
 
 public class UppercaseHandler implements InvocationHandler {
 
