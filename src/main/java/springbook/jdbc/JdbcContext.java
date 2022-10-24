@@ -14,11 +14,11 @@ public class JdbcContext {
         this.dataSource = dataSource;
     }
 
-    public void executeSql(final String query, final String... args) {
+    public void executeSql(final String query, final Object... args) {
         execute(connection -> connection.prepareStatement(query), args);
     }
 
-    private void execute(final StatementStrategy statementStrategy, final String[] params) {
+    private void execute(final StatementStrategy statementStrategy, final Object[] params) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = statementStrategy.makePreparedStatement(connection)) {
             setParams(params, preparedStatement);
@@ -28,10 +28,10 @@ public class JdbcContext {
         }
     }
 
-    private void setParams(final String[] params, final PreparedStatement preparedStatement) throws SQLException {
+    private void setParams(final Object[] params, final PreparedStatement preparedStatement) throws SQLException {
         int length = params.length;
         for (int i = 0; i < length; i++) {
-            preparedStatement.setString(i + 1, params[i]);
+            preparedStatement.setObject(i + 1, params[i]);
         }
     }
 
@@ -44,7 +44,8 @@ public class JdbcContext {
                 return new User(
                         resultSet.getString("id"),
                         resultSet.getString("name"),
-                        resultSet.getString("password")
+                        resultSet.getString("password"),
+                        resultSet.getInt("level")
                 );
             }
             return null;

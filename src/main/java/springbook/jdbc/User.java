@@ -2,6 +2,7 @@ package springbook.jdbc;
 
 import java.util.Objects;
 import lombok.Getter;
+import springbook.jdbctemplate.domain.Level;
 
 @Getter
 public class User {
@@ -9,11 +10,24 @@ public class User {
     private final String id;
     private final String name;
     private final String password;
+    private Level level;
 
-    public User(final String id, final String name, final String password) {
+    public User(final String id, final String name, final String password, final int level) {
         this.id = id;
         this.name = name;
         this.password = password;
+        this.level = Level.of(level);
+    }
+
+    public User(final String id, final String name, final String password, final Level level) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.level = level;
+    }
+
+    public void upgradeLevel() {
+        level = level.nextLevel();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package springbook.jdbctemplate;
+package springbook.jdbctemplate.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -8,33 +8,44 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import springbook.jdbctemplate.ProxyConfig;
+import springbook.jdbctemplate.dao.UserDao;
+import springbook.jdbctemplate.dao.UserDaoImpl;
+import springbook.jdbctemplate.domain.Level;
+import springbook.jdbctemplate.domain.User;
 
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {DataSourceConfig.class, UserDao.class, UserService.class})
-class UserServiceTest {
+@ContextConfiguration(classes = {ProxyConfig.class, UserDaoImpl.class})
+class UserServiceWithAopTest {
 
     @Autowired
-    private UserService userService;
+    private ProxyFactoryBean proxyFactoryBean;
 
     @Autowired
     private UserDao userDao;
 
+    private UserService userService;
+
     @BeforeEach
     void delete() {
+        userService = (UserService) proxyFactoryBean.getObject();
         userDao.deleteAll();
     }
 
     @DisplayName(value = "여러명의 사용자 레벨 정상 업그레이드")
-    void upgradeLevels_succeed() throws Exception {
+    @Test
+    void upgradeLevels_succeed() {
         // given
         User user1 = new User("id1", "name", "password", Level.BASIC);
         User user2 = new User("id2", "name", "password", Level.BASIC);
         User user3 = new User("id3", "name", "password", Level.SILVER);
         List<User> users = List.of(user1, user2, user3);
+        saveAll(users);
 
         // when
         userService.upgradeLevels(users);
@@ -50,17 +61,20 @@ class UserServiceTest {
     }
 
     @DisplayName(value = "하나라도 레벨 정상 업그레이드 되지 않으면 전부 롤백")
-    void upgradeLevels_failed() throws Exception {
+    @Test
+    void upgradeLevels_failed() {
         // given
         User user1 = new User("id1", "name", "password", Level.BASIC);
         User user2 = new User("id2", "name", "password", Level.BASIC);
         User user3 = new User("id3", "name", "password", Level.GOLD);
         List<User> users = List.of(user1, user2, user3);
+        saveAll(users);
 
-        // when
-        userService.upgradeLevels(users);
+        // when & then
+        assertThatThrownBy(() -> userService.upgradeLevels(users))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("더 업그레이드할 수 없는 레벨입니다.");
 
-        // then
         User actual1 = userDao.findById(user1.getId());
         User actual2 = userDao.findById(user2.getId());
         User actual3 = userDao.findById(user3.getId());
@@ -70,32 +84,9 @@ class UserServiceTest {
         assertThat(actual3.getLevel()).isEqualTo(Level.GOLD);
     }
 
-    @DisplayName(value = "사용자 레벨 정상 업그레이드")
-    @Test
-    void upgrade_success() {
-        // given
-        String id = "yeonlog06";
-        User user = new User(id, "연로그", "1234", Level.BASIC);
-        userDao.save(user);
-
-        // when
-        userService.upgradeLevel(user);
-
-        // then
-        User actual = userDao.findById(id);
-        assertThat(actual.getLevel()).isEqualTo(Level.SILVER);
-    }
-
-    @DisplayName(value = "사용자 레벨 업그레이드 실패")
-    @Test
-    void upgrade_failed() {
-        // given
-        String id = "yeonlog06";
-        User user = new User(id, "연로그", "1234", Level.GOLD);
-        userDao.save(user);
-
-        // when & then
-        assertThatThrownBy(() -> userService.upgradeLevel(user))
-                .isInstanceOf(IllegalStateException.class);
+    private void saveAll(final List<User> users) {
+        for (User user : users) {
+            userDao.save(user);
+        }
     }
 }
