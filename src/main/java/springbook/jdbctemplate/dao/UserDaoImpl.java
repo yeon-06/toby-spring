@@ -14,9 +14,9 @@ public class UserDaoImpl implements UserDao {
     private final SqlFinder sqlFinder;
     private final JdbcTemplate jdbcTemplate;
 
-    public UserDaoImpl(final DataSource dataSource) {
+    public UserDaoImpl(final SqlFinder sqlFinder, final DataSource dataSource) {
+        this.sqlFinder = sqlFinder;
         this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.sqlFinder = new SqlFinder("sql-user.properties");
     }
 
     @Override

@@ -12,9 +12,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import springbook.jdbctemplate.DataSourceConfig;
 import springbook.jdbctemplate.domain.Level;
 import springbook.jdbctemplate.domain.User;
+import springbook.jdbctemplate.supporter.SqlFinder;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {DataSourceConfig.class, UserDaoImpl.class})
+@ContextConfiguration(classes = {DataSourceConfig.class, UserDaoImpl.class, SqlFinder.class})
 class UserDaoTest {
 
     @Autowired

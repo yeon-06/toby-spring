@@ -18,11 +18,12 @@ import org.springframework.jdbc.support.JdbcTransactionManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import springbook.jdbctemplate.DataSourceConfig;
-import springbook.jdbctemplate.domain.Level;
 import springbook.jdbctemplate.TransactionHandler;
-import springbook.jdbctemplate.domain.User;
 import springbook.jdbctemplate.dao.UserDao;
 import springbook.jdbctemplate.dao.UserDaoImpl;
+import springbook.jdbctemplate.domain.Level;
+import springbook.jdbctemplate.domain.User;
+import springbook.jdbctemplate.supporter.SqlFinder;
 
 
 class UserServiceWithMockTest {
@@ -44,19 +45,21 @@ class UserServiceWithMockTest {
     }
 
     @ExtendWith(SpringExtension.class)
-    @ContextConfiguration(classes = DataSourceConfig.class)
-    static
-    class UserServiceTest {
+    @ContextConfiguration(classes = {DataSourceConfig.class, SqlFinder.class})
+    static class UserServiceTest {
 
         @Autowired
         private DataSource dataSource;
+
+        @Autowired
+        private SqlFinder sqlFinder;
 
         private UserDao userDao;
         private UserService userService;
 
         @BeforeEach
         void init() {
-            userDao = new UserDaoImpl(dataSource);
+            userDao = new UserDaoImpl(sqlFinder, dataSource);
             UserService userService = new UserServiceImpl(userDao);
             JdbcTransactionManager transactionManager = new JdbcTransactionManager(dataSource);
             TransactionHandler transactionHandler = new TransactionHandler(userService, transactionManager);
