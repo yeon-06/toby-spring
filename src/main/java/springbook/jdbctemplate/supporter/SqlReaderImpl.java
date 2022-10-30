@@ -8,9 +8,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class SqlReaderImpl implements SqlReader {
 
+    private static final String DEFAULT_RESOURCE = "sql-user.properties";
+
+    private String resource = DEFAULT_RESOURCE;
+
     @Override
-    public void readSql(SqlRegistry sqlRegistry) throws Exception {
-        String resource = "sql-user.properties";
+    public void setResource(final String resource) {
+        this.resource = resource;
+    }
+
+    @Override
+    public void readSql(final SqlRegistry sqlRegistry) throws Exception {
         Properties properties = new Properties();
 
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(resource);
