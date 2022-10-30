@@ -17,6 +17,7 @@ dependencies {
     implementation 'org.springframework:spring-jdbc:5.3.22'
 
     implementation 'mysql:mysql-connector-java:8.0.30'
+    implementation 'com.h2database:h2'
 
     implementation 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
