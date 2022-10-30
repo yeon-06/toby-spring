@@ -5,17 +5,12 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SqlFinder implements InitializingBean {
+public class SqlFinder implements SqlService {
 
     private final Map<String, String> properties = new HashMap<>();
-
-    public String get(final String key) {
-        return properties.get(key);
-    }
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -32,5 +27,10 @@ public class SqlFinder implements InitializingBean {
             String value = properties.getProperty(key);
             this.properties.put(key, value);
         }
+    }
+
+    @Override
+    public String getSql(final String key) {
+        return properties.get(key);
     }
 }
