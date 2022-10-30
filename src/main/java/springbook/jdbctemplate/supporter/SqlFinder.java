@@ -5,12 +5,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class SqlFinder implements SqlService {
 
-    private SqlRegistry sqlRegistry;
+    private final SqlRegistry sqlRegistry;
+    private final SqlReader sqlReader;
+
+    public SqlFinder(final SqlRegistry sqlRegistry, final SqlReader sqlReader) {
+        this.sqlRegistry = sqlRegistry;
+        this.sqlReader = sqlReader;
+    }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        sqlRegistry = new SqlRegistryImpl();
-        new SqlReaderImpl().readSql(sqlRegistry);
+        sqlReader.readSql(sqlRegistry);
     }
 
     @Override

@@ -2,7 +2,9 @@ package springbook.jdbctemplate.supporter;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SqlRegistryImpl implements SqlRegistry {
 
     private final Map<String, String> map = new HashMap<>();

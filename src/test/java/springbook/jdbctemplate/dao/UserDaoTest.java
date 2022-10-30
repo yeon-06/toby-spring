@@ -13,9 +13,12 @@ import springbook.jdbctemplate.DataSourceConfig;
 import springbook.jdbctemplate.domain.Level;
 import springbook.jdbctemplate.domain.User;
 import springbook.jdbctemplate.supporter.SqlFinder;
+import springbook.jdbctemplate.supporter.SqlReaderImpl;
+import springbook.jdbctemplate.supporter.SqlRegistryImpl;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {DataSourceConfig.class, UserDaoImpl.class, SqlFinder.class})
+@ContextConfiguration(classes = {DataSourceConfig.class, UserDaoImpl.class, SqlFinder.class, SqlRegistryImpl.class,
+        SqlReaderImpl.class})
 class UserDaoTest {
 
     @Autowired

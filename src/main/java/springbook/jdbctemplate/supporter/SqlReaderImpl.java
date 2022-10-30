@@ -3,7 +3,9 @@ package springbook.jdbctemplate.supporter;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Properties;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SqlReaderImpl implements SqlReader {
 
     @Override
