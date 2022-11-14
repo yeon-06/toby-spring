@@ -41,8 +41,7 @@
 
 ### Chapter 8. 스프링이란 무엇인가?
 
-- [학습 브랜치]
-- [학습 기록]
+- [학습 기록](https://github.com/yeon-06/toby-spring/pull/10)
 
 ### Chapter 9. 스프링 프로젝트 시작하기
 
