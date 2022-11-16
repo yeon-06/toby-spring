@@ -45,5 +45,5 @@
 
 ### Chapter 9. 스프링 프로젝트 시작하기
 
-- [학습 브랜치]
-- [학습 기록]
+- [학습 브랜치](https://github.com/yeon-06/toby-spring/tree/chapter9)
+- [학습 기록](https://github.com/yeon-06/toby-spring/pull/11)
